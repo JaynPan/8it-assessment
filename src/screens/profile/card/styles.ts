@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { BANNER_HEIGHT, BANNER_WIDTH } from '../constants';
+import { BANNER_HEIGHT, SCREEN_WIDTH } from '../constants';
 
 const CARD_HEIGHT = 150;
 const HEIGHT_TO_COVER_BANNER = 30;
@@ -8,7 +8,7 @@ const AVATAR_DIAMETER = 90;
 export const card = StyleSheet.create({
   shadow: {
     maxWidth: 500,
-    width: BANNER_WIDTH - 36,
+    width: SCREEN_WIDTH - 36,
     backgroundColor: 'transparent',
     position: 'absolute',
     top: BANNER_HEIGHT - HEIGHT_TO_COVER_BANNER,
