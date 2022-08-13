@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MainStackNavProps } from '../../navigation/mainStack.params';
 import banner from '../../../assets/banner.jpg';
+
 import { generalStyles } from './styles';
 import { Card } from './card';
 import { Gallery } from './gallery';

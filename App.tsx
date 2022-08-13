@@ -1,12 +1,15 @@
 import React, { FC } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import WhoAmIProvider from './src/contexts/whoAmI';
 
 import { Router } from './src/navigation/router';
 
 const App: FC = () => {
   return (
     <SafeAreaProvider>
-      <Router />
+      <WhoAmIProvider>
+        <Router />
+      </WhoAmIProvider>
     </SafeAreaProvider>
   );
 };
