@@ -7,6 +7,11 @@ export const generalStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  settingsWrapper: {
+    position: 'absolute',
+    right: 15,
+    zIndex: 999,
+  },
 });
 
 const CARD_HEIGHT = 150;
