@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import WhoAmIProvider from './src/contexts/whoAmI';
+import 'react-native-gesture-handler';
 
+import WhoAmIProvider from './src/contexts/whoAmI';
 import { Router } from './src/navigation/router';
 
 const App: FC = () => {
