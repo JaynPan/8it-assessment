@@ -7,11 +7,17 @@ import { TextInput } from '../../components/textInput';
 import banner from '../../../assets/banner.jpg';
 import avatar from '../../../assets/avatar.jpg';
 import { useWhoAmI } from '../../contexts/whoAmI';
+import { Button } from '../../components/button';
+
 import { profileEditorStyles } from './styles';
 
 export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigation }) => {
   const { userInfo, handleUserInfoOnChange } = useWhoAmI();
   const { handleName, bio, location } = userInfo;
+
+  const save = () => {
+    navigation.navigate('Profile');
+  };
 
   return (
     <KeyboardAwareScrollView>
@@ -25,6 +31,9 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
         <TextInput label="Handle Name" value={handleName} onChangeText={handleUserInfoOnChange('handleName')} />
         <TextInput label="Bio" value={bio} onChangeText={handleUserInfoOnChange('bio')} />
         <TextInput label="Location" value={location} onChangeText={handleUserInfoOnChange('location')} />
+        <Button onPress={save} width={250} containerStyle={{ marginTop: 40 }}>
+          Save
+        </Button>
       </View>
     </KeyboardAwareScrollView>
   );

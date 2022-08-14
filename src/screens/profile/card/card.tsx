@@ -10,7 +10,7 @@ import { CardProps } from './types';
 
 export const Card: FC<CardProps> = ({ navigation }) => {
   const { userInfo } = useWhoAmI();
-  const { handleName, bio, location } = userInfo;
+  const { handleName, bio } = userInfo;
 
   const navigateToProfileEditorScreen = () => {
     navigation.navigate('ProfileEditor');
