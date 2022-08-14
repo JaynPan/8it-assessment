@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Image, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -6,16 +6,26 @@ import { MainStackNavProps } from '../../navigation/mainStack.params';
 import { TextInput } from '../../components/textInput';
 import banner from '../../../assets/banner.jpg';
 import avatar from '../../../assets/avatar.jpg';
-import { useWhoAmI } from '../../contexts/whoAmI';
+import { useWhoAmI, WhoAmIContextState } from '../../contexts/whoAmI';
 import { Button } from '../../components/button';
 
 import { profileEditorStyles } from './styles';
 
 export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigation }) => {
-  const { userInfo, handleUserInfoOnChange } = useWhoAmI();
-  const { handleName, bio, location } = userInfo;
+  const { userInfo, saveUserInfoToSecureStore } = useWhoAmI();
+  const [unsavedUserInfo, setUnsavedUserInfo] = useState(userInfo);
+  const { handleName, bio, location } = unsavedUserInfo;
 
-  const save = () => {
+  const handleUnSavedUserInfoOnChange = (key: keyof WhoAmIContextState['userInfo']) => (value: string) => {
+    setUnsavedUserInfo((prev) => {
+      const newState = { ...prev };
+      newState[key] = value;
+      return newState;
+    });
+  };
+
+  const save = async () => {
+    await saveUserInfoToSecureStore(unsavedUserInfo);
     navigation.navigate('Profile');
   };
 
@@ -28,9 +38,9 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
         </View>
       </View>
       <View style={profileEditorStyles.form}>
-        <TextInput label="Handle Name" value={handleName} onChangeText={handleUserInfoOnChange('handleName')} />
-        <TextInput label="Bio" value={bio} onChangeText={handleUserInfoOnChange('bio')} />
-        <TextInput label="Location" value={location} onChangeText={handleUserInfoOnChange('location')} />
+        <TextInput label="Handle Name" value={handleName} onChangeText={handleUnSavedUserInfoOnChange('handleName')} />
+        <TextInput label="Bio" value={bio} onChangeText={handleUnSavedUserInfoOnChange('bio')} />
+        <TextInput label="Location" value={location} onChangeText={handleUnSavedUserInfoOnChange('location')} />
         <Button onPress={save} width={250} containerStyle={{ marginTop: 40 }}>
           Save
         </Button>

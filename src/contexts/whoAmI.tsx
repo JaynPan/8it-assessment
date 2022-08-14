@@ -1,4 +1,5 @@
-import React, { useState, ComponentType } from 'react';
+import React, { useState, ComponentType, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
 
 import createCtx from './createCtx';
 
@@ -12,33 +13,42 @@ export type UserInfo = {
 
 export type WhoAmIContextState = {
   userInfo: UserInfo;
-  handleUserInfoOnChange: (key: keyof UserInfo) => (value: string) => void;
+  saveUserInfoToSecureStore: (userInfo: UserInfo) => Promise<void>;
 };
 
 export const [useWhoAmI, CtxProvider] = createCtx<WhoAmIContextState>();
+const CACHE_USER_INFO = 'cacheUserInfo';
+const DEFAULT_USER_INFO = {
+  handleName: 'Christopher H.',
+  bio: 'Find me on Pikadish!',
+  location: 'Vancouver',
+  gender: 'Male',
+  birthDate: '1990/12/03',
+};
 
 const WhoAmIProvider: ComponentType = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({
-    handleName: 'Christopher H.',
-    bio: 'Find me on Pikadish!',
-    location: 'Vancouver',
-    gender: 'Male',
-    birthDate: '1990/12/03',
-  });
+  const [userInfo, setUserInfo] = useState(DEFAULT_USER_INFO);
 
-  const handleUserInfoOnChange: WhoAmIContextState['handleUserInfoOnChange'] = (key) => (value) => {
-    setUserInfo((prev) => {
-      const newState = { ...prev };
-      newState[key] = value;
-      return newState;
-    });
+  const saveUserInfoToSecureStore = async (newUserInfo: UserInfo) => {
+    setUserInfo(newUserInfo);
+    await SecureStore.setItemAsync(CACHE_USER_INFO, JSON.stringify(newUserInfo));
   };
+
+  useEffect(() => {
+    (async () => {
+      const cacheUserInfo = await SecureStore.getItemAsync(CACHE_USER_INFO);
+
+      if (cacheUserInfo) {
+        setUserInfo(JSON.parse(cacheUserInfo));
+      }
+    })();
+  }, []);
 
   return (
     <CtxProvider
       value={{
         userInfo,
-        handleUserInfoOnChange,
+        saveUserInfoToSecureStore,
       }}
     >
       {children}
