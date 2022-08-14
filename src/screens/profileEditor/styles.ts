@@ -4,6 +4,7 @@ import { SCREEN_WIDTH } from '../../constants/layout';
 import { PROFILE_EDITOR_BANNER_HEIGHT } from './constants';
 
 const AVATAR_DIAMETER = 100;
+const MARGIN_HORIZONTAL = 30;
 
 export const profileEditorStyles = StyleSheet.create({
   bannerWrapper: {
@@ -31,5 +32,9 @@ export const profileEditorStyles = StyleSheet.create({
     width: AVATAR_DIAMETER,
     height: AVATAR_DIAMETER,
     borderRadius: 10,
+  },
+  form: {
+    marginHorizontal: MARGIN_HORIZONTAL,
+    marginTop: 60,
   },
 });
