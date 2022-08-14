@@ -24,14 +24,13 @@ export const card = StyleSheet.create({
     elevation: 11,
   },
   container: {
-    height: CARD_HEIGHT,
     borderRadius: 15,
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
   },
   dummyContainer: {
-    height: CARD_HEIGHT,
+    minHeight: CARD_HEIGHT,
   },
   avatar: {
     width: AVATAR_DIAMETER,
@@ -61,7 +60,7 @@ export const card = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginVertical: 10,
   },
   pipe: {
     width: 1,

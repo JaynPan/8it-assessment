@@ -32,23 +32,23 @@ export const Gallery: FC = () => {
   };
 
   return (
-    <FlatList
-      ListHeaderComponent={
-        <View style={galleryStyles.listHeader}>
-          <TouchableOpacity onPress={pressCategory(CategoryEnum.dishAte)}>
-            <CategoryText count={dishAtePhotos.length}>Dish Ate</CategoryText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={pressCategory(CategoryEnum.wannaTrys)}>
-            <CategoryText count={wannaTrysPhotos.length}>Wanna Trys</CategoryText>
-          </TouchableOpacity>
-        </View>
-      }
-      data={photos[currentCategory]}
-      numColumns={GALLERY_NUMBERS_OF_COLUMNS}
-      keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={galleryStyles.contentContainer}
-      renderItem={renderItem}
-    />
+    <>
+      <View style={galleryStyles.listHeader}>
+        <TouchableOpacity onPress={pressCategory(CategoryEnum.dishAte)}>
+          <CategoryText count={dishAtePhotos.length}>Dish Ate</CategoryText>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={pressCategory(CategoryEnum.wannaTrys)}>
+          <CategoryText count={wannaTrysPhotos.length}>Wanna Trys</CategoryText>
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={photos[currentCategory]}
+        numColumns={GALLERY_NUMBERS_OF_COLUMNS}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={galleryStyles.contentContainer}
+        renderItem={renderItem}
+      />
+    </>
   );
 };
 
