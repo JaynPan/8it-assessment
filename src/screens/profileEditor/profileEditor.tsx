@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { ScrollView, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { MainStackNavProps } from '../../navigation/mainStack.params';
 import { TextInput } from '../../components/textInput';
@@ -13,7 +14,7 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
   const { handleName, bio, location } = userInfo;
 
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView>
       <View style={profileEditorStyles.bannerWrapper}>
         <Image source={banner} style={profileEditorStyles.banner} />
         <View style={profileEditorStyles.avatarWrapper}>
@@ -25,6 +26,6 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
         <TextInput label="Bio" value={bio} onChangeText={handleUserInfoOnChange('bio')} />
         <TextInput label="Location" value={location} onChangeText={handleUserInfoOnChange('location')} />
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
