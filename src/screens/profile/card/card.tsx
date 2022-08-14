@@ -9,7 +9,8 @@ import { card } from './styles';
 import { CardProps } from './types';
 
 export const Card: FC<CardProps> = ({ navigation }) => {
-  const { handleName, bio } = useWhoAmI();
+  const { userInfo } = useWhoAmI();
+  const { handleName, bio, location } = userInfo;
 
   const navigateToProfileEditorScreen = () => {
     navigation.navigate('ProfileEditor');

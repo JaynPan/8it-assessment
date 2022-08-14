@@ -2,7 +2,7 @@ import React, { useState, ComponentType } from 'react';
 
 import createCtx from './createCtx';
 
-export type WhoAmIContextState = {
+export type UserInfo = {
   handleName: string;
   bio: string;
   location: string;
@@ -10,23 +10,35 @@ export type WhoAmIContextState = {
   birthDate: string;
 };
 
+export type WhoAmIContextState = {
+  userInfo: UserInfo;
+  handleUserInfoOnChange: (key: keyof UserInfo) => (value: string) => void;
+};
+
 export const [useWhoAmI, CtxProvider] = createCtx<WhoAmIContextState>();
 
 const WhoAmIProvider: ComponentType = ({ children }) => {
-  const [handleName, setHandleName] = useState('Christopher H.');
-  const [bio, setBio] = useState('Find me on Pikadish!');
-  const [location, setLocation] = useState('Vancouver');
-  const [gender, setGender] = useState('Male');
-  const [birthDate, setBirthDate] = useState('1990/12/03');
+  const [userInfo, setUserInfo] = useState({
+    handleName: 'Christopher H.',
+    bio: 'Find me on Pikadish!',
+    location: 'Vancouver',
+    gender: 'Male',
+    birthDate: '1990/12/03',
+  });
+
+  const handleUserInfoOnChange: WhoAmIContextState['handleUserInfoOnChange'] = (key) => (value) => {
+    setUserInfo((prev) => {
+      const newState = { ...prev };
+      newState[key] = value;
+      return newState;
+    });
+  };
 
   return (
     <CtxProvider
       value={{
-        handleName,
-        bio,
-        location,
-        gender,
-        birthDate,
+        userInfo,
+        handleUserInfoOnChange,
       }}
     >
       {children}

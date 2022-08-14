@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, ScrollView, Image, View } from 'react-native';
+import { ScrollView, Image, View } from 'react-native';
 
 import { MainStackNavProps } from '../../navigation/mainStack.params';
 import { TextInput } from '../../components/textInput';
@@ -9,7 +9,8 @@ import { useWhoAmI } from '../../contexts/whoAmI';
 import { profileEditorStyles } from './styles';
 
 export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigation }) => {
-  const { handleName, bio, location } = useWhoAmI();
+  const { userInfo, handleUserInfoOnChange } = useWhoAmI();
+  const { handleName, bio, location } = userInfo;
 
   return (
     <ScrollView>
@@ -20,9 +21,9 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
         </View>
       </View>
       <View style={profileEditorStyles.form}>
-        <TextInput label="Handle Name" value={handleName} />
-        <TextInput label="Bio" value={bio} />
-        <TextInput label="Location" value={location} />
+        <TextInput label="Handle Name" value={handleName} onChangeText={handleUserInfoOnChange('handleName')} />
+        <TextInput label="Bio" value={bio} onChangeText={handleUserInfoOnChange('bio')} />
+        <TextInput label="Location" value={location} onChangeText={handleUserInfoOnChange('location')} />
       </View>
     </ScrollView>
   );
