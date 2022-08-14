@@ -14,7 +14,7 @@ import { profileEditorStyles } from './styles';
 export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigation }) => {
   const { userInfo, saveUserInfoToSecureStore } = useWhoAmI();
   const [unsavedUserInfo, setUnsavedUserInfo] = useState(userInfo);
-  const { handleName, bio, location } = unsavedUserInfo;
+  const { handleName, bio, location, gender, birthDate } = unsavedUserInfo;
 
   const handleUnSavedUserInfoOnChange = (key: keyof WhoAmIContextState['userInfo']) => (value: string) => {
     setUnsavedUserInfo((prev) => {
@@ -41,7 +41,9 @@ export const ProfileEditor: FC<MainStackNavProps<'ProfileEditor'>> = ({ navigati
         <TextInput label="Handle Name" value={handleName} onChangeText={handleUnSavedUserInfoOnChange('handleName')} />
         <TextInput label="Bio" value={bio} onChangeText={handleUnSavedUserInfoOnChange('bio')} />
         <TextInput label="Location" value={location} onChangeText={handleUnSavedUserInfoOnChange('location')} />
-        <Button onPress={save} width={250} containerStyle={{ marginTop: 40 }}>
+        <TextInput label="Gender" value={gender} onChangeText={handleUnSavedUserInfoOnChange('gender')} />
+        <TextInput label="Birth Date" value={birthDate} onChangeText={handleUnSavedUserInfoOnChange('birthDate')} />
+        <Button onPress={save} width={250} containerStyle={{ marginVertical: 40 }}>
           Save
         </Button>
       </View>
