@@ -1,5 +1,6 @@
 import React, { useState, ComponentType, useEffect } from 'react';
 import * as SecureStore from 'expo-secure-store';
+import * as SplashScreen from 'expo-splash-screen';
 
 import createCtx from './createCtx';
 
@@ -36,10 +37,17 @@ const WhoAmIProvider: ComponentType = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const cacheUserInfo = await SecureStore.getItemAsync(CACHE_USER_INFO);
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        const cacheUserInfo = await SecureStore.getItemAsync(CACHE_USER_INFO);
 
-      if (cacheUserInfo) {
-        setUserInfo(JSON.parse(cacheUserInfo));
+        if (cacheUserInfo) {
+          setUserInfo(JSON.parse(cacheUserInfo));
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        await SplashScreen.hideAsync();
       }
     })();
   }, []);
