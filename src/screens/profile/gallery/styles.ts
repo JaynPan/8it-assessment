@@ -17,6 +17,9 @@ export const galleryStyles = StyleSheet.create({
     justifyContent: 'space-evenly',
     padding: 8,
   },
+  invisibleItem: {
+    backgroundColor: 'transparent',
+  },
 });
 
 export const categoryStyles = StyleSheet.create({
