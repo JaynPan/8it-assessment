@@ -1,18 +1,19 @@
 import React, { FC, useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { FlatList, Image, ListRenderItem, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import salad from '../../../../assets/salad.jpg';
 import cake from '../../../../assets/cake.jpg';
 import { GALLERY_NUMBERS_OF_COLUMNS } from '../constants';
 import { categoryStyles, galleryStyles } from './styles';
-import { CategoryEnum, CategoryTextProps } from './types';
+import { CategoryEnum, CategoryTextProps, Photo } from './types';
+import { fillUpRowWithPhotos } from './utils';
 
 const dishAtePhotos = Array.from({ length: 19 }).map((_, i) => ({ source: salad, id: i }));
 const wannaTrysPhotos = Array.from({ length: 30 }).map((_, i) => ({ source: cake, id: i }));
 const photos = {
-  [CategoryEnum.dishAte]: dishAtePhotos,
-  [CategoryEnum.wannaTrys]: wannaTrysPhotos,
+  [CategoryEnum.dishAte]: fillUpRowWithPhotos(dishAtePhotos),
+  [CategoryEnum.wannaTrys]: fillUpRowWithPhotos(wannaTrysPhotos),
 };
 
 export const Gallery: FC = () => {
@@ -20,6 +21,14 @@ export const Gallery: FC = () => {
 
   const pressCategory = (type: CategoryEnum) => () => {
     setCurrentCategory(type);
+  };
+
+  const renderItem: ListRenderItem<Photo> = ({ item }) => {
+    if (!item.source) {
+      return <View style={[galleryStyles.squareImage, galleryStyles.invisibleItem]} />;
+    }
+
+    return <Image source={item.source} style={galleryStyles.squareImage} />;
   };
 
   return (
@@ -38,7 +47,7 @@ export const Gallery: FC = () => {
       numColumns={GALLERY_NUMBERS_OF_COLUMNS}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={galleryStyles.contentContainer}
-      renderItem={({ item }) => <Image source={item.source} style={galleryStyles.squareImage} />}
+      renderItem={renderItem}
     />
   );
 };

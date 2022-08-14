@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from 'react-native';
+
 export enum CategoryEnum {
   dishAte,
   wannaTrys,
@@ -5,4 +7,9 @@ export enum CategoryEnum {
 
 export type CategoryTextProps = {
   count: number;
+};
+
+export type Photo = {
+  source?: ImageSourcePropType;
+  id: number;
 };
