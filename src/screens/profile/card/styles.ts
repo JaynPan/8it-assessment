@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BANNER_HEIGHT, SCREEN_WIDTH } from '../constants';
+
+import { SCREEN_WIDTH } from '../../../constants/layout';
+import { BANNER_HEIGHT } from '../constants';
 
 const CARD_HEIGHT = 150;
 const HEIGHT_TO_COVER_BANNER = 30;

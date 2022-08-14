@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BANNER_HEIGHT, SCREEN_WIDTH } from './constants';
+
+import { SCREEN_WIDTH } from '../../constants/layout';
+import { BANNER_HEIGHT } from './constants';
 
 export const generalStyles = StyleSheet.create({
   container: {

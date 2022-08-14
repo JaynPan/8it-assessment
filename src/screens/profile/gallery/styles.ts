@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { GALLERY_NUMBERS_OF_COLUMNS, SCREEN_WIDTH } from '../constants';
+
+import { SCREEN_WIDTH } from '../../../constants/layout';
+import { GALLERY_NUMBERS_OF_COLUMNS } from '../constants';
 
 export const galleryStyles = StyleSheet.create({
   contentContainer: {
